@@ -1,15 +1,15 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useRegister = defineStore('register', () => {
+  const errors = reactive({})
+  const loading = ref(false)
   const form = reactive({
     name: '',
     email: '',
     password: '',
     password_confirmation: ''
   })
-
-  const errors = reactive({})
 
   function resetForm() {
     form.name = ''
@@ -21,6 +21,9 @@ export const useRegister = defineStore('register', () => {
   }
 
   async function handleSubmit() {
+    if (loading.value) return
+
+    loading.value = true
     errors.value = {}
 
     return window.axios
@@ -36,8 +39,9 @@ export const useRegister = defineStore('register', () => {
       .finally(() => {
         form.password = ''
         form.password_confirmation = ''
+        loading.value = false
       })
   }
 
-  return { form, resetForm, handleSubmit, errors }
+  return { form, resetForm, handleSubmit, errors, loading }
 })
