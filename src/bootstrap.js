@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useAuth } from '@/store/auth'
+import { useAuth } from '@/stores/auth'
 
 window.axios = axios
 /* We set X-Requested-With header to tell the server it is an XHR request,
