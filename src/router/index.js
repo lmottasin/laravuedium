@@ -1,10 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuth } from '@/stores/auth'
 
 function auth(to, from, next) {
   if (!localStorage.getItem('access_token')) {
     return next({ name: 'login' })
   }
 
+  next()
+}
+
+function verified(to, from, next) {
+  const auth = useAuth()
+  if (auth.check && !auth.isEmailVerified) {
+    return next({ name: 'email.verification.send' })
+  }
   next()
 }
 
@@ -31,6 +40,18 @@ const router = createRouter({
       component: () => import('@/views/Auth/RegisterView.vue')
     },
     {
+      path: '/send-email-verification',
+      name: 'email.verification.send',
+      beforeEnter: [auth],
+      component: () => import('@/views/Auth/VerifyEmailView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile.edit',
+      beforeEnter: [auth, verified],
+      component: () => import('@/views/Profile/EditView.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       beforeEnter: guest,
@@ -41,12 +62,6 @@ const router = createRouter({
       name: 'posts.index',
       beforeEnter: auth,
       component: () => import('@/views/Posts/IndexView.vue')
-    },
-    {
-      path: '/profile',
-      name: 'profile.edit',
-      beforeEnter: auth,
-      component: () => import('@/views/Profile/EditView.vue')
     }
   ]
 })
