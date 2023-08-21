@@ -18,6 +18,7 @@ export const useAuth = defineStore('auth', () => {
   }
 
   function setUserDetails(userData) {
+    console.log(userData, 'parameter')
     name.value = userData.name
     email.value = userData.email
     emailVerifiedAt.value = userData.email_verified_at
@@ -43,5 +44,5 @@ export const useAuth = defineStore('auth', () => {
     })
   }
 
-  return { login, logout, check, destroyTokenAndRedirectTo, isEmailVerified }
+  return { login, logout, check, destroyTokenAndRedirectTo, isEmailVerified, setUserDetails }
 })

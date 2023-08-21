@@ -7,11 +7,11 @@ window.axios = axios
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 /*tells the axios library to send the cookies along the request. */
 window.axios.defaults.withCredentials = true
-/* so we can omit full URLs in our requests and just type in 
+/* so we can omit full URLs in our requests and just type in
 the relative path of the server's API endpoint. */
 window.axios.defaults.baseURL = 'http://localhost:8000/api/v1'
 
-/* If unauthorized response occured */
+/* If unauthenticated response occurred */
 window.axios.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -19,7 +19,6 @@ window.axios.interceptors.response.use(
       const auth = useAuth()
       auth.destroyTokenAndRedirectTo()
     }
-
     return Promise.reject(error)
   }
 )
@@ -30,3 +29,13 @@ if (localStorage.getItem('access_token')) {
     'access_token'
   )}`
 }
+
+function extracted() {
+  axios.get('/auth/user').then(function (response) {
+    const auth = useAuth()
+
+    auth.setUserDetails(response.data.data)
+  })
+}
+
+extracted()
