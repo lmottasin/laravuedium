@@ -1,16 +1,19 @@
-import { computed, ref } from 'vue'
+import { computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 export const useAuth = defineStore('auth', () => {
   const router = useRouter()
   const accessToken = useStorage('access_token', '')
   const check = computed(() => !!accessToken.value)
-  const emailVerifiedAt = ref('')
-  const name = ref('')
-  const email = ref('')
-  const isEmailVerified = computed(() => !!emailVerifiedAt.value)
+  const user = reactive({
+    name: '',
+    email: '',
+    emailVerifiedAt: ''
+  })
+  const isEmailVerified = computed(() => !!user.emailVerifiedAt)
 
   function setAccessToken(value) {
     accessToken.value = value
@@ -18,17 +21,24 @@ export const useAuth = defineStore('auth', () => {
   }
 
   function setUserDetails(userData) {
-    console.log(userData, 'parameter')
-    name.value = userData.name
-    email.value = userData.email
-    emailVerifiedAt.value = userData.email_verified_at
+    user.name = userData.name
+    user.email = userData.email
+    user.emailVerifiedAt = userData.email_verified_at
+  }
 
-    console.log('pinia state value', [name.value, email.value, emailVerifiedAt.value])
+  async function getAuthUser() {
+    await axios
+      .get('/auth/user')
+      .then((response) => {
+        setUserDetails(response.data.data)
+      })
+      .catch((e) => {
+        throw new Error(e)
+      })
   }
 
   function login(data) {
     setAccessToken(data.access_token)
-    console.log('form logoin method', data.user)
     setUserDetails(data.user)
     router.push({ name: 'posts.index' })
   }
@@ -44,5 +54,12 @@ export const useAuth = defineStore('auth', () => {
     })
   }
 
-  return { login, logout, check, destroyTokenAndRedirectTo, isEmailVerified, setUserDetails }
+  return {
+    login,
+    logout,
+    check,
+    destroyTokenAndRedirectTo,
+    isEmailVerified,
+    getAuthUser
+  }
 })

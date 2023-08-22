@@ -60,10 +60,21 @@ const router = createRouter({
     {
       path: '/posts',
       name: 'posts.index',
-      beforeEnter: auth,
+      beforeEnter: [auth, verified],
       component: () => import('@/views/Posts/IndexView.vue')
     }
   ]
+})
+
+router.beforeEach(async () => {
+  const authStore = useAuth()
+  if (authStore.check) {
+    try {
+      await authStore.getAuthUser()
+    } catch (error) {
+      console.log('Error getting auth' + error.message)
+    }
+  }
 })
 
 export default router

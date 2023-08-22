@@ -29,13 +29,3 @@ if (localStorage.getItem('access_token')) {
     'access_token'
   )}`
 }
-
-function extracted() {
-  axios.get('/auth/user').then(function (response) {
-    const auth = useAuth()
-
-    auth.setUserDetails(response.data.data)
-  })
-}
-
-extracted()
