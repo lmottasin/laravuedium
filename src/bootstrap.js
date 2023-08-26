@@ -9,7 +9,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 window.axios.defaults.withCredentials = true
 /* so we can omit full URLs in our requests and just type in
 the relative path of the server's API endpoint. */
-window.axios.defaults.baseURL = 'http://localhost:8000/api/v1'
+window.axios.defaults.baseURL = 'https://laravuedium-api.test/api/v1'
 
 /* If unauthenticated response occurred */
 window.axios.interceptors.response.use(

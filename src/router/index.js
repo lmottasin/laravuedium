@@ -40,6 +40,12 @@ const router = createRouter({
       component: () => import('@/views/Auth/RegisterView.vue')
     },
     {
+      path: '/login',
+      name: 'login',
+      beforeEnter: guest,
+      component: () => import('@/views/Auth/LoginView.vue')
+    },
+    {
       path: '/send-email-verification',
       name: 'email.verification.send',
       beforeEnter: [auth],
@@ -52,10 +58,10 @@ const router = createRouter({
       component: () => import('@/views/Profile/EditView.vue')
     },
     {
-      path: '/login',
-      name: 'login',
-      beforeEnter: guest,
-      component: () => import('@/views/Auth/LoginView.vue')
+      path: '/profile/change-password',
+      name: 'profile.change-password',
+      beforeEnter: [auth, verified],
+      component: () => import('@/views/Profile/ChangePassword.vue')
     },
     {
       path: '/posts',
