@@ -5,6 +5,23 @@ import { useLogin } from '@/stores/login'
 const store = useLogin()
 
 onBeforeUnmount(store.resetForm)
+
+const test = () => {
+  /* const popupWindowURL = new URL(window.location.href)
+  const code = popupWindowURL.searchParams.get('code')
+  const state = popupWindowURL.searchParams.get('state')
+  if (state?.includes('_github') && code) {
+    localStorage.setItem('github', code)
+    window.close()
+  }*/
+
+  const url = 'https://github.com/login/oauth/authorize/' + import.meta.env.GITHUB_CLIENT_ID
+  const windowName = 'Github Login'
+  const windowFeatures =
+    'width=400,height=300,resizable=yes,scrollbars=yes,menubar=no,toolbar=no,location=no,modal=yes'
+
+  window.open(url, windowName, windowFeatures)
+}
 </script>
 
 <template>
@@ -65,4 +82,7 @@ onBeforeUnmount(store.resetForm)
       </div>
     </div>
   </form>
+  <div class="flex flex-col gap-2">
+    <button class="btn btn-primary" @click="test">Login with github</button>
+  </div>
 </template>
