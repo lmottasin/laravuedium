@@ -15,7 +15,9 @@ const test = () => {
     window.close()
   }*/
 
-  const url = 'https://github.com/login/oauth/authorize/' + import.meta.env.GITHUB_CLIENT_ID
+  const url =
+    'https://github.com/login/oauth/authorize?client_id=' +
+    import.meta.env.VITE_APP_GITHUB_CLIENT_ID
   const windowName = 'Github Login'
   const windowFeatures =
     'width=400,height=300,resizable=yes,scrollbars=yes,menubar=no,toolbar=no,location=no,modal=yes'
