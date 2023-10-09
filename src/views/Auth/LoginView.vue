@@ -6,23 +6,13 @@ const store = useLogin()
 
 onBeforeUnmount(store.resetForm)
 
-const test = () => {
-  /* const popupWindowURL = new URL(window.location.href)
-  const code = popupWindowURL.searchParams.get('code')
-  const state = popupWindowURL.searchParams.get('state')
-  if (state?.includes('_github') && code) {
-    localStorage.setItem('github', code)
-    window.close()
-  }*/
-
+const handleLoginWithGihubButtonClick = () => {
   const url =
     'https://github.com/login/oauth/authorize?client_id=' +
-    import.meta.env.VITE_APP_GITHUB_CLIENT_ID
-  const windowName = 'Github Login'
-  const windowFeatures =
-    'width=400,height=300,resizable=yes,scrollbars=yes,menubar=no,toolbar=no,location=no,modal=yes'
+    import.meta.env.VITE_APP_GITHUB_CLIENT_ID +
+    '&state=github'
 
-  window.open(url, windowName, windowFeatures)
+  window.open(url, '_self')
 }
 </script>
 
@@ -85,6 +75,8 @@ const test = () => {
     </div>
   </form>
   <div class="flex flex-col gap-2">
-    <button class="btn btn-primary" @click="test">Login with github</button>
+    <button class="btn btn-primary" @click="handleLoginWithGihubButtonClick">
+      Login with github
+    </button>
   </div>
 </template>
