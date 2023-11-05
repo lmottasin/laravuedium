@@ -19,6 +19,7 @@ export const useProfile = defineStore('profile', () => {
   }
 
   function cancelFrom() {
+    errors.value = {}
     return window.axios.get('profile').then((response) => {
       form.name = response.data.name
       form.email = response.data.email
