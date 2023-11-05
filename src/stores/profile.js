@@ -18,6 +18,13 @@ export const useProfile = defineStore('profile', () => {
     status.value = ''
   }
 
+  function cancelFrom() {
+    return window.axios.get('profile').then((response) => {
+      form.name = response.data.name
+      form.email = response.data.email
+    })
+  }
+
   async function fetchProfile() {
     return window.axios.get('profile').then((response) => {
       form.name = response.data.name
@@ -54,6 +61,7 @@ export const useProfile = defineStore('profile', () => {
     resetForm,
     status,
     fetchProfile,
-    updateProfile
+    updateProfile,
+    cancelFrom
   }
 })

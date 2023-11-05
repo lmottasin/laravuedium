@@ -52,7 +52,7 @@ const router = createRouter({
       component: () => import('@/views/Auth/VerifyEmailView.vue')
     },
     {
-      path: '/profile',
+      path: '/profile/edit',
       name: 'profile.edit',
       beforeEnter: [auth, verified],
       component: () => import('@/views/Profile/EditView.vue')

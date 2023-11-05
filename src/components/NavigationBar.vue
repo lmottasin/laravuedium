@@ -132,14 +132,13 @@ const isMobileMenuOpen = ref(false)
                     id="user-menu-item-0"
                     >Your Profile</a
                   >
-                  <a
-                    href="./edit-profile.html"
+                  <RouterLink
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                    tabindex="-1"
-                    id="user-menu-item-1"
-                    >Edit Profile</a
+                    :to="{ name: 'profile.edit' }"
                   >
+                    Edit Profile
+                  </RouterLink>
+
                   <a
                     @click="auth.logout"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -244,11 +243,12 @@ const isMobileMenuOpen = ref(false)
               class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
               >Your Profile</a
             >
-            <a
-              href="./edit-profile.html"
+            <RouterLink
               class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-              >Edit Profile</a
+              :to="{ name: 'profile.edit' }"
             >
+              Edit Profile
+            </RouterLink>
             <a
               href="#"
               class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
