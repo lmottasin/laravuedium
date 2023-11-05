@@ -1,11 +1,10 @@
 <script setup>
-import { useAuth } from '@/stores/auth'
-
-const auth = useAuth()
+import NavigationBar from '@/components/NavigationBar.vue'
+import FooterContent from '@/components/FooterContent.vue'
 </script>
 
 <template>
-  <header class="py-6 bg-gray-100 shadow">
+  <!--  <header class="py-6 bg-gray-100 shadow">
     <div class="container md:px-2 px-4 mx-auto">
       <nav class="flex gap-4 justify-between">
         <div class="flex gap-4 items-center">
@@ -43,5 +42,21 @@ const auth = useAuth()
 
   <div class="container md:px-2 px-4 pt-8 md:pt-16 mx-auto">
     <slot />
-  </div>
+  </div>-->
+
+  <body class="bg-gray-100">
+    <!-- Navigation -->
+    <NavigationBar />
+
+    <main class="container max-w-xl mx-auto space-y-8 mt-8 px-2 md:px-0 min-h-screen">
+      <div class="text-center p-12 border border-gray-800 rounded-xl">
+        <h1 class="text-3xl justify-center items-center">Welcome to Laravuedium!</h1>
+      </div>
+      <!-- Page Slot -->
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <FooterContent />
+  </body>
 </template>

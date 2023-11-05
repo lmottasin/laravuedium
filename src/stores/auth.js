@@ -55,11 +55,12 @@ export const useAuth = defineStore('auth', () => {
   }
 
   return {
+    user,
+    isEmailVerified,
     login,
     logout,
     check,
     destroyTokenAndRedirectTo,
-    isEmailVerified,
     getAuthUser
   }
 })
