@@ -132,11 +132,19 @@ const isMobileMenuOpen = ref(false)
                     id="user-menu-item-0"
                     >Your Profile</a
                   >
+
                   <RouterLink
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     :to="{ name: 'profile.edit' }"
                   >
                     Edit Profile
+                  </RouterLink>
+
+                  <RouterLink
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    :to="{ name: 'profile.change-password' }"
+                  >
+                    Change Password
                   </RouterLink>
 
                   <a
