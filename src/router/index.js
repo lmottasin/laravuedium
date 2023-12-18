@@ -17,6 +17,14 @@ function verified(to, from, next) {
   next()
 }
 
+function alreadyVerified(to, from, next) {
+  const auth = useAuth()
+  if (auth.check && auth.isEmailVerified) {
+    return next({ name: 'posts.index' })
+  }
+  next()
+}
+
 function guest(to, from, next) {
   if (localStorage.getItem('access_token')) {
     return next({ name: 'posts.index' })
@@ -48,7 +56,7 @@ const router = createRouter({
     {
       path: '/send-email-verification',
       name: 'email.verification.send',
-      beforeEnter: [auth],
+      beforeEnter: [auth, alreadyVerified],
       component: () => import('@/views/Auth/VerifyEmailView.vue')
     },
     {
